@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_155327) do
+ActiveRecord::Schema.define(version: 2019_04_02_154442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,14 +20,14 @@ ActiveRecord::Schema.define(version: 2019_04_02_155327) do
     t.integer "frequency"
     t.date "date"
     t.string "day", default: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], array: true
+    t.integer "relationship_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "relationship_id"
   end
 
   create_table "relationships", force: :cascade do |t|
-    t.integer "friender_id"
-    t.integer "friendee_id"
+    t.integer "requester_id"
+    t.integer "requested_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -41,12 +41,12 @@ ActiveRecord::Schema.define(version: 2019_04_02_155327) do
     t.text "bio"
     t.string "default_type"
     t.integer "default_frequency"
-    t.bigint "friender_id"
-    t.bigint "friendee_id"
+    t.bigint "requester_id"
+    t.bigint "requested_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["friendee_id"], name: "index_users_on_friendee_id"
-    t.index ["friender_id"], name: "index_users_on_friender_id"
+    t.index ["requested_id"], name: "index_users_on_requested_id"
+    t.index ["requester_id"], name: "index_users_on_requester_id"
   end
 
 end

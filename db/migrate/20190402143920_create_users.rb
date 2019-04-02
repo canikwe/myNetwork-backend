@@ -9,8 +9,8 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.text :bio
       t.string :default_type
       t.integer :default_frequency
-      t.references :friender, index: true
-      t.references :friendee, index: true
+      t.references :requester, index: true
+      t.references :requested, index: true
 
       t.timestamps
     end
