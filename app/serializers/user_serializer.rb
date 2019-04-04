@@ -1,7 +1,7 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name
   has_many :contacts
-  # has_many :alerts, through: :requests
+  has_many :reminders, through: :contacts
 
   # def friends
   #   friends = {}

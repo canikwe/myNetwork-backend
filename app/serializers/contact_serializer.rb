@@ -1,5 +1,5 @@
 class ContactSerializer < ActiveModel::Serializer
-  attributes :id, :name, :friend_id, :reminders
+  attributes :id, :name, :friend_id
   
   # has_many :alerts
   belongs_to :requestor, foreign_key: "requestor_id", class_name: "User"
