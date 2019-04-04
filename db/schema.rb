@@ -15,19 +15,18 @@ ActiveRecord::Schema.define(version: 2019_04_02_154442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "alerts", force: :cascade do |t|
-    t.string "name"
-    t.integer "frequency"
-    t.date "date"
-    t.string "day", default: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], array: true
-    t.integer "relationship_id"
+  create_table "contacts", force: :cascade do |t|
+    t.integer "requestor_id"
+    t.integer "requested_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "relationships", force: :cascade do |t|
-    t.integer "requester_id"
-    t.integer "requested_id"
+  create_table "reminders", force: :cascade do |t|
+    t.string "msg"
+    t.date "date"
+    t.string "day", default: ["1"], array: true
+    t.integer "contact_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,14 +38,12 @@ ActiveRecord::Schema.define(version: 2019_04_02_154442) do
     t.string "email"
     t.string "avatar"
     t.text "bio"
-    t.string "default_type"
-    t.integer "default_frequency"
-    t.bigint "requester_id"
+    t.bigint "requestor_id"
     t.bigint "requested_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["requested_id"], name: "index_users_on_requested_id"
-    t.index ["requester_id"], name: "index_users_on_requester_id"
+    t.index ["requestor_id"], name: "index_users_on_requestor_id"
   end
 
 end

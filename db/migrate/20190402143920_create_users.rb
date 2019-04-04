@@ -7,9 +7,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :avatar
       t.text :bio
-      t.string :default_type
-      t.integer :default_frequency
-      t.references :requester, index: true
+      t.references :requestor, index: true
       t.references :requested, index: true
 
       t.timestamps
