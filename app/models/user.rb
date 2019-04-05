@@ -4,9 +4,7 @@ class User < ApplicationRecord
   # has_many :friends, foreign_key: :requester_id, class_name: "Relationship", dependent: :destroy
     # has_many :requested, foreign_key: :requested_id, class_name: "Relationship" , dependent: :destroy
 
-
   has_many :reminders, through: :contacts
-  # has_many :reminders, through: :friends
 
 
   def name
