@@ -2,9 +2,9 @@ class Api::V1::ContactsController < ApplicationController
   before_action :get_contact, only: [:destroy]
 
   def destroy
-    byebug
+    
     contact = @contact
-    @contact.def destroy
+    @contact.destroy
     render json: contact, status: :accepted
   end
 
