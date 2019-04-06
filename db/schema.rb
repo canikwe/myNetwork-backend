@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2019_04_02_154442) do
   create_table "reminders", force: :cascade do |t|
     t.string "msg"
     t.date "date"
-    t.string "day", default: ["1"], array: true
+    t.integer "day", default: [0], array: true
     t.integer "contact_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

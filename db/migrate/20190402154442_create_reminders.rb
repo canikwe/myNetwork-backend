@@ -3,7 +3,7 @@ class CreateReminders < ActiveRecord::Migration[5.2]
     create_table :reminders do |t|
       t.string :msg
       t.date :date
-      t.string :day, array: :true, default: ["1"]
+      t.integer :day, array: :true, default: [0]
       t.integer :contact_id
 
       t.timestamps
