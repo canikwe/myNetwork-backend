@@ -21,13 +21,13 @@ class Reminder < ApplicationRecord
       end
 
       case self.period
+      when 'daily'
+        current = current.advance(days: self.interval)
       when 'monthly'
         month_count += self.interval
         current = self.start_date.advance(months: month_count)
       when 'weekly'
         current = current.advance(weeks: self.interval)
-      when 'daily'
-        current = current.advance(days: self.interval)
       when 'yearly'
         current = current.advance(years: self.interval)
       end

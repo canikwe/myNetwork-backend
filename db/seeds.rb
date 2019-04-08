@@ -10,9 +10,9 @@ User.destroy_all
 Contact.destroy_all
 Reminder.destroy_all
 
-u1 = User.create(first_name: "Joan", last_name: "Archie", username: "jojo", email: "jojo@validemail.com", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png")
-u2 = User.create(first_name: "Diane", last_name: "Lane", username: "deedee", email: "diane@validemail.com", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png")
-u3 = User.create(first_name: "Paula", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png")
+u1 = User.create(first_name: "Joan", last_name: "Archie", username: "jojo", email: "jojo@validemail.com", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png", password: 'test')
+u2 = User.create(first_name: "Diane", last_name: "Lane", username: "deedee", email: "diane@validemail.com", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png", password: 'test')
+u3 = User.create(first_name: "Paula", avatar: "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png", password: 'test')
 
 c1 = Contact.create(requestor: u1, requested: u2)
 c2 = Contact.create(requestor: u1, requested: u3)
