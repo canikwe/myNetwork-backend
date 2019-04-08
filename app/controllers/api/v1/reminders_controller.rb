@@ -5,14 +5,14 @@ class Api::V1::RemindersController < ApplicationController
     reminder = Reminder.create(reminder_params)
     render json: reminder, status: :accepted
   end
-
+  
   def update
+    # @reminder.advance_reminder
     @reminder.update(reminder_params)
     render json: @reminder, status: :accepted
   end
 
   def destroy
-
     reminder = @reminder
     @reminder.destroy
     render json: reminder, status: :accepted
@@ -20,7 +20,7 @@ class Api::V1::RemindersController < ApplicationController
 
   private
   def reminder_params
-    params.require(:reminder).permit(:id, :msg, :date, :contact_id, :day => [])
+    params.require(:reminder).permit(:id, :msg, :start_date, :interval, :period, :snoozed, :current, :contact_id)
   end
 
   def get_reminder
