@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :get_user, only: [:show]
+  before_action :get_user, only: [:show, :update]
 
   def index
     render json: User.all, status: :accepted
@@ -9,8 +9,13 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: :accepted
   end
 
+  def update
+
+    @user.update(user_params)
+    render json: @user, status: :accepted
+  end
+
   def create
-    
     if user_params.has_key?(:requestor_id)
       user = User.create(first_name: user_params[:first_name], last_name: user_params[:last_name])
       contact = Contact.create(requestor_id: user_params[:requestor_id], requested_id: user.id)

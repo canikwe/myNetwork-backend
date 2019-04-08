@@ -7,6 +7,14 @@ class Contact < ApplicationRecord
     self.requested.name
   end
 
+  def first_name
+    self.requested.first_name
+  end
+
+  def last_name
+    self.requested.last_name
+  end
+
   def friend_id
     self.requested_id
   
