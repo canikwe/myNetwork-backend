@@ -5,12 +5,14 @@ class Api::V1::AuthController < ApplicationController
     @user = User.find_by(username: login_params[:username])
     if @user && @user.authenticate(login_params[:password])
       render json: {
-        mesage: 'Authenticated! You are lgged in',
-        user: UserSerializer.new(@user)
+        message: 'Authenticated! You are lgged in',
+        user: UserSerializer.new(@user),
+        status: :success
         }, status: :accepted
     else
       render json: {
-        message: 'WRONG! Are you a hacker??'
+        message: 'Username and password do not match',
+        status: :client_error
       }, status: :not_acceptable
     end
   end

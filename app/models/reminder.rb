@@ -14,8 +14,7 @@ class Reminder < ApplicationRecord
     month_count = 0
     today = Date.today
 
-    # byebug
-    while current <= today
+    while current <= today && self.recurring == true
       if current == today
         return true
       end

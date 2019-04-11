@@ -9,8 +9,8 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: :accepted
   end
 
-  def update
-
+  def update #update is not accepting passwords
+    
     @user.update(user_params)
     render json: @user, status: :accepted
   end
@@ -38,6 +38,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id)
+    params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm)
   end
 end

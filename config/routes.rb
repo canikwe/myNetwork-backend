@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :show, :create, :update]
       resources :reminders, only: [:create, :update, :destroy]
-      resources :contacts, only: [:destroy]
+      resources :contacts, only: [:destroy, :update]
       post '/login', to: 'auth#create'
     end
   end
