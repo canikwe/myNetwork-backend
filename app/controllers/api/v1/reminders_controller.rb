@@ -20,7 +20,7 @@ class Api::V1::RemindersController < ApplicationController
 
   private
   def reminder_params
-    params.require(:reminder).permit(:id, :msg, :start_date, :interval, :period, :snoozed, :current, :contact_id)
+    params.require(:reminder).permit(:id, :msg, :start_date, :interval, :period, :snoozed, :current, :contact_id, :recurring, :end_date)
   end
 
   def get_reminder
