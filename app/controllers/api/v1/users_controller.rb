@@ -1,6 +1,17 @@
 class Api::V1::UsersController < ApplicationController
   before_action :get_user, only: [:show, :update]
 
+
+  def profile
+    token = request.headers['Authentication'].split(' ')[1]
+    payload = decode(token)
+
+    @user = User.find(payload['user_id'])
+    if @user
+      render json: @user, status: :accepted
+    end
+  end
+
   def index
     render json: User.all, status: :accepted
   end
@@ -10,7 +21,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update #update is not accepting passwords
-    
     @user.update(user_params)
     render json: @user, status: :accepted
   end

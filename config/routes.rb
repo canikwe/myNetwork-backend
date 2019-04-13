@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :reminders, only: [:create, :update, :destroy]
       resources :contacts, only: [:destroy, :update]
       post '/login', to: 'auth#create'
+      get 'profile', to: 'users#profile'
     end
   end
 end
