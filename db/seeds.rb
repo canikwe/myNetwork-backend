@@ -17,7 +17,7 @@ u3 = User.create(first_name: "Paula", avatar: "https://ayogo.com/wp-content/uplo
 c1 = Contact.create(requestor: u1, requested: u2)
 c2 = Contact.create(requestor: u1, requested: u3)
 
-Reminder.create(msg: "Call Diane", start_date: Date.new(2019, 4, 8), interval: 1, period: 'weekly', current: Date.new(2019, 4, 8), contact: c1)
-Reminder.create(msg: "Diane's Birthday", start_date: Date.new(2019, 4, 9), interval: 1, period: 'weekly', current: Date.new(2019, 4, 9), contact: c1)
-Reminder.create(msg: "Lunch Date with Paula", start_date: Date.new(2019, 4, 12), interval: 1, period: 'weekly', current: Date.new(2019, 4, 12), contact: c2)
-Reminder.create(msg: "Paula's Birthday", start_date: Date.new(2019, 4, 8), interval: 1, period: 'yearly', current: Date.new(2018, 4, 8), contact: c2)
+Reminder.create(msg: "Call Diane", start_date: DateTime.new(2019, 4, 8), interval: 1, period: 'weekly', end_date: DateTime.new(2024, 12, 31), contact: c1)
+Reminder.create(msg: "Diane's Birthday", start_date: DateTime.new(2019, 4, 9), interval: 1, period: 'weekly', end_date: DateTime.new(2024, 12, 31), contact: c1)
+Reminder.create(msg: "Lunch Date with Paula", start_date: DateTime.new(2019, 4, 12), interval: 1, period: 'weekly', end_date: DateTime.new(2024, 12, 31), contact: c2)
+Reminder.create(msg: "Paula's Birthday", start_date: DateTime.new(2019, 4, 8), interval: 1, period: 'yearly', end_date: DateTime.new(2024, 12, 31), contact: c2)
