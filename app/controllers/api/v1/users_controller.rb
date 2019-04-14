@@ -20,13 +20,13 @@ class Api::V1::UsersController < ApplicationController
     render json: @user, status: :accepted
   end
 
-  def update #update is not accepting passwords
+  def update
     @user.update(user_params)
-    render json: @user, status: :accepted
+    render json: { message: 'Your account has been updated!', user: @user }, status: :accepted
   end
 
   def create
-    byebug
+    
     if user_params.has_key?(:requestor_id)
       @user = User.create(first_name: user_params[:first_name], last_name: user_params[:last_name], password: 'guest_user_account')
       
@@ -38,9 +38,9 @@ class Api::V1::UsersController < ApplicationController
       if @user.save
         token = encode({user_id: @user.id})
         render json: { message: 'Authenticated! You are lgged in',
-        user: UserSerializer.new(@user),
-        token: token,
-        authenticated: true}, status: :accepted
+                      user: UserSerializer.new(@user),
+                      token: token,
+                      authenticated: true}, status: :accepted
       else
         render json: { message: @user.errors.full_messages, status: :not_acceptable }
       end
