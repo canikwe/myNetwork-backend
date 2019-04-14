@@ -11,9 +11,9 @@ class Reminder < ApplicationRecord
   
 
   def match
-    current = self.start_date
+    current = self.start_date.to_date
     month_count = 0
-    today = Date.today
+    today = DateTime.now.to_date
 
     while current <= today && self.recurring == true
       if current == today

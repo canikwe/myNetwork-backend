@@ -26,6 +26,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
+    # byebug
     if user_params.has_key?(:requestor_id)
       @user = User.create(first_name: user_params[:first_name], last_name: user_params[:last_name], password: 'guest_user_account')
       
@@ -35,9 +36,13 @@ class Api::V1::UsersController < ApplicationController
     else
       @user = User.new(user_params)
       if @user.save
-      render json: @user, status: :accepted
+        token = encode({user_id: @user.id})
+        render json: { message: 'Authenticated! You are lgged in',
+        user: UserSerializer.new(@user),
+        token: token,
+        authenticated: true}, status: :accepted
       else
-        render json: { error: @user.errors.full_messages, status: :not_acceptable }
+        render json: { message: @user.errors.full_messages, status: :not_acceptable }
       end
     end
   end
