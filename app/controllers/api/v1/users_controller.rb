@@ -26,7 +26,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def create
-    # byebug
+    byebug
     if user_params.has_key?(:requestor_id)
       @user = User.create(first_name: user_params[:first_name], last_name: user_params[:last_name], password: 'guest_user_account')
       
