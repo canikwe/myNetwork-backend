@@ -8,32 +8,41 @@ class Reminder < ApplicationRecord
   def friend_name
     self.contact.requested.name
   end
+
+  def resetSnooze
+    # byebug
+    if !self.current.nil? && self.current.to_date < DateTime.now.to_date
+      self.update(snoozed: false) if self.snoozed
+    end
+  end
   
 
   def match
-    current = self.start_date.to_date
+    self.resetSnooze
+
+    current_date = self.start_date.to_date
     month_count = 0
     today = DateTime.now.to_date
 
-    while current <= today && self.recurring == true
-      if current == today
+    while current_date <= today && self.recurring == true
+      if current_date == today
         return true
       end
 
       case self.period
       when 'daily'
-        current = current.advance(days: self.interval)
+        current_date = current_date.advance(days: self.interval)
       when 'monthly'
         month_count += self.interval
-        current = self.start_date.advance(months: month_count)
+        current_date = self.start_date.advance(months: month_count)
       when 'weekly'
-        current = current.advance(weeks: self.interval)
+        current_date = current_date.advance(weeks: self.interval)
       when 'yearly'
-        current = current.advance(years: self.interval)
+        current_date = current_date.advance(years: self.interval)
       end
     end
 
-    return current == today
+    return current_date == today
   
   end
 
