@@ -21,20 +21,19 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params)
+    @user.update(user_params[:user_info])
     render json: { message: 'Your account has been updated!', user: @user }, status: :accepted
   end
 
   def create
-    
-    if user_params.has_key?(:requestor_id)
-      @user = User.create(first_name: user_params[:first_name], last_name: user_params[:last_name], password: 'guest_user_account')
+    if !user_params[:contact_attributes].nil?
+      @user = User.create(first_name: user_params[:user_info][:first_name], last_name: user_params[:user_info][:last_name], avatar: user_params[:user_info][:avatar], password: 'guest_user_account')
       
-      contact = Contact.create(requestor_id: user_params[:requestor_id], requested_id: @user.id)
+      contact = Contact.create(requestor_id: user_params[:contact_attributes][:requestor_id], kind: user_params[:contact_attributes][:kind], details: user_params[:contact_attributes][:details], requested_id: @user.id)
       
       render json: contact, status: :accepted
     else
-      @user = User.new(user_params)
+      @user = User.new(user_params[:user_info])
       if @user.save
         token = encode({user_id: @user.id})
         render json: { message: 'Authenticated! You are lgged in',
@@ -53,6 +52,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm)
+    params.require(:user).permit(user_info: [:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm], contact_attributes:[:id, :requestor_id, :kind, :details])
   end
 end

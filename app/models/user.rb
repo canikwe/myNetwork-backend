@@ -6,18 +6,14 @@ class User < ApplicationRecord
 
   has_many :contacts, foreign_key: :requestor_id, class_name: "Contact", dependent: :destroy
   has_many :requested_contact, foreign_key: :requested_id, class_name: "Contact" , dependent: :destroy
-
   has_many :reminders, through: :contacts
-
+  
   has_secure_password
 
+  accepts_nested_attributes_for :contacts, allow_destroy: true
+  
   def name
     "#{self.first_name} #{self.last_name}"
   end
 
-  # def friends
-  #   self.requests.map do |f|
-  #     f.requested
-  #   end
-  # end
 end

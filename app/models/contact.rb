@@ -20,7 +20,10 @@ class Contact < ApplicationRecord
 
   def friend_id
     self.requested_id
-  
+  end
+
+  def avatar
+    self.requested.avatar
   end
 
 end
