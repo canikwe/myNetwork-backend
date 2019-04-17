@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_16_225004) do
+ActiveRecord::Schema.define(version: 2019_04_17_145236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 2019_04_16_225004) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
-    t.string "splash_image"
+    t.text "splash_image"
     t.index ["requested_id"], name: "index_users_on_requested_id"
     t.index ["requestor_id"], name: "index_users_on_requestor_id"
   end
