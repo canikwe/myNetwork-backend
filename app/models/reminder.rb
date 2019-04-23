@@ -15,6 +15,16 @@ class Reminder < ApplicationRecord
       self.update(snoozed: false) if self.snoozed
     end
   end
+
+  def expired
+    today = DateTime.now.to_date
+
+    if self.end_date.to_date < today
+      return true
+    else
+      return false
+    end
+  end
   
 
   def match
@@ -23,10 +33,12 @@ class Reminder < ApplicationRecord
     current_date = self.start_date.to_date
     month_count = 0
     today = DateTime.now.to_date
-
+    
     while current_date <= today && self.recurring == true
       if current_date == today
         return true
+      elsif self.end_date.to_date < today
+        return false
       end
 
       case self.period

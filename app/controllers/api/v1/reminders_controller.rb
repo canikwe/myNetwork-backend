@@ -3,7 +3,7 @@ class Api::V1::RemindersController < ApplicationController
 
   def create
     reminder = Reminder.create(reminder_params)
-    render json: reminder, status: :accepted
+    render json: ReminderSerializer.new(reminder), status: :accepted
   end
   
   def update
