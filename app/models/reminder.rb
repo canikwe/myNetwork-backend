@@ -25,6 +25,10 @@ class Reminder < ApplicationRecord
       return false
     end
   end
+
+  def contact_name
+    self.contact.requested.name
+  end
   
 
   def match
