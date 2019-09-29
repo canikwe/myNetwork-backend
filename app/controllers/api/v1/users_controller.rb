@@ -6,9 +6,10 @@ class Api::V1::UsersController < ApplicationController
     token = request.headers['Authentication'].split(' ')[1]
     payload = decode(token)
 
-    @user = User.find(payload['user_id'])
-    if @user
-      render json: @user, status: :accepted
+    user = User.find(payload['user_id'])
+
+    if user
+      render json: { user: UserSerializer.new(user), reminders: user.reminders.map { |r| ReminderSerializer.new(r) }, contacts: user.contacts.map { |c| ContactSerializer.new(c) } }, status: :accepted
     end
   end
 
@@ -28,9 +29,9 @@ class Api::V1::UsersController < ApplicationController
   def create
     if !user_params[:contact_attributes].nil?
       @user = User.create(first_name: user_params[:user_info][:first_name], last_name: user_params[:user_info][:last_name], avatar: user_params[:user_info][:avatar], password: 'guest_user_account')
-      
+
       contact = Contact.create(requestor_id: user_params[:contact_attributes][:requestor_id], kind: user_params[:contact_attributes][:kind], details: user_params[:contact_attributes][:details], requested_id: @user.id)
-      
+
       render json: contact, status: :accepted
     else
       @user = User.new(user_params[:user_info])
