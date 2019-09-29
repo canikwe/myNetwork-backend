@@ -22,8 +22,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    @user.update(user_params[:user_info])
-    render json: { message: 'Your account has been updated!', user: @user }, status: :accepted
+    byebug
+    @user.update(user_params)
+    render json: { message: 'Your account has been updated!', user: UserSerializer.new(@user) }, status: :accepted
   end
 
   def create
@@ -39,6 +40,8 @@ class Api::V1::UsersController < ApplicationController
         token = encode({user_id: @user.id})
         render json: { message: 'Authenticated! You are lgged in',
                       user: UserSerializer.new(@user),
+                      reminders: user.reminders.map { |r| ReminderSerializer.new(r) },
+                      contacts: user.contacts.map { |c| ContactSerializer.new(c) },
                       token: token,
                       authenticated: true}, status: :accepted
       else
@@ -49,10 +52,16 @@ class Api::V1::UsersController < ApplicationController
 
   private
   def get_user
+    byebug
     @user = User.find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(user_info: [:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm, :splash_image], contact_attributes:[:id, :requestor_id, :kind, :details])
+    params.permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm, :splash_image, :photo)
+  end
+
+  def contact_params
+    params.permit(:id, :requestor_id, :kind, :details)
+
   end
 end

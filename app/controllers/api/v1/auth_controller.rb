@@ -1,7 +1,7 @@
 class Api::V1::AuthController < ApplicationController
 
   def create
-    
+
     @user = User.find_by(username: login_params[:username])
     if @user && @user.authenticate(login_params[:password])
 
@@ -9,6 +9,8 @@ class Api::V1::AuthController < ApplicationController
       render json: {
         message: 'Authenticated! You are lgged in',
         user: UserSerializer.new(@user),
+        reminders: @user.reminders.map { |r| ReminderSerializer.new(r) },
+        contacts: @user.contacts.map { |c| ContactSerializer.new(c) },
         token: token,
         authenticated: true
         }, status: :accepted
