@@ -4,8 +4,7 @@ class User < ApplicationRecord
   validates :username, uniqueness: true,
     unless: Proc.new { |a| a.username.nil? }
 
-  has_many :contacts, foreign_key: :requestor_id, class_name: "Contact", dependent: :destroy
-  has_many :requested_contact, foreign_key: :requested_id, class_name: "Contact" , dependent: :destroy
+  has_many :contacts, dependent: :destroy
   has_many :reminders, through: :contacts
 
   has_one_attached :photo

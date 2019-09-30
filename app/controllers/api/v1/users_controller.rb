@@ -7,7 +7,6 @@ class Api::V1::UsersController < ApplicationController
     payload = decode(token)
 
     user = User.find(payload['user_id'])
-
     if user
       render json: { user: UserSerializer.new(user), reminders: user.reminders.map { |r| ReminderSerializer.new(r) }, contacts: user.contacts.map { |c| ContactSerializer.new(c) } }, status: :accepted
     end
@@ -22,7 +21,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    byebug
+
     @user.update(user_params)
     render json: { message: 'Your account has been updated!', user: UserSerializer.new(@user) }, status: :accepted
   end
@@ -52,7 +51,7 @@ class Api::V1::UsersController < ApplicationController
 
   private
   def get_user
-    byebug
+
     @user = User.find(params[:id])
   end
 

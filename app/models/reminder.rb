@@ -2,11 +2,11 @@ class Reminder < ApplicationRecord
   belongs_to :contact
 
   def friend_id
-    self.contact.requested.id
+    self.contact.user_id
   end
 
   def friend_name
-    self.contact.requested.name
+    self.contact.name
   end
 
   def resetSnooze
@@ -27,9 +27,9 @@ class Reminder < ApplicationRecord
   end
 
   def contact_name
-    self.contact.requested.name
+    self.contact.name
   end
-  
+
 
   def match
     self.resetSnooze
@@ -37,7 +37,7 @@ class Reminder < ApplicationRecord
     current_date = self.start_date.to_date
     month_count = 0
     today = DateTime.now.to_date
-    
+
     while current_date <= today && self.recurring == true
       if current_date == today
         return true
@@ -59,9 +59,8 @@ class Reminder < ApplicationRecord
     end
 
     return current_date == today
-  
+
   end
 
 
 end
-
