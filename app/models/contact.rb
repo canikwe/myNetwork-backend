@@ -1,10 +1,10 @@
 class Contact < ApplicationRecord
   # belongs_to :requestor, foreign_key: "requestor_id", class_name: "User"
-  belongs_to :requested, foreign_key: "requested_id", class_name: "User"
+  # belongs_to :requested, foreign_key: "requested_id", class_name: "User"
   belongs_to :user
   has_many :reminders, dependent: :destroy
 
-  accepts_nested_attributes_for :requested, allow_destroy: true
+  # accepts_nested_attributes_for :requested, allow_destroy: true
 
 
   def name
