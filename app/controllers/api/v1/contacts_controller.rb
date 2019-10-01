@@ -8,13 +8,11 @@ class Api::V1::ContactsController < ApplicationController
   end
 
   def update
-    @contact.update(contact_params[:contact_info])
-    @contact.requested.update(contact_params[:requested_attributes])
+    @contact.update(contact_params)
     render json: ContactSerializer.new(@contact)
   end
 
   def create
-    byebug
     contact = Contact.new(contact_params)
     if contact.save
       render json: ContactSerializer.new(contact)
