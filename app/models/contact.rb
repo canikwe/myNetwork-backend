@@ -3,7 +3,8 @@ class Contact < ApplicationRecord
   # belongs_to :requested, foreign_key: "requested_id", class_name: "User"
   belongs_to :user
   has_many :reminders, dependent: :destroy
-  has_many :goals, as: :originator
+  has_many :goals, as: :originator, dependent: :destroy
+  has_many :reminder_goals, -> { where('goals.originator_type' => 'Reminder') }, through: :reminders, source: :goals
 
   # accepts_nested_attributes_for :requested, allow_destroy: true
 
