@@ -6,8 +6,14 @@ class Api::V1::UsersController < ApplicationController
     payload = decode(token)
 
     user = User.find(payload['user_id'])
+
     if user
-      render json: { user: UserSerializer.new(user), reminders: user.reminders.map { |r| ReminderSerializer.new(r) }, contacts: user.contacts.map { |c| ContactSerializer.new(c) } }, status: :accepted
+      render json: {
+        user: UserSerializer.new(user),
+        reminders: user.reminders.map { |r| ReminderSerializer.new(r) },
+        contacts: user.contacts.map { |c| ContactSerializer.new(c) },
+        goals: user.contacts.map { |c| c.get_all_goals }.flatten },
+        status: :accepted
     end
   end
 
@@ -40,6 +46,7 @@ class Api::V1::UsersController < ApplicationController
                     user: UserSerializer.new(user),
                     reminders: user.reminders.map { |r| ReminderSerializer.new(r) },
                     contacts: user.contacts.map { |c| ContactSerializer.new(c) },
+                    goals: user.contacts.map { |c| c.get_all_goals }.flatten,
                     token: token,
                     authenticated: true}, status: :accepted
     else

@@ -25,14 +25,16 @@ class Contact < ApplicationRecord
     self.user_id
   end
 
-  # def avatar
-  #   self.requested.avatar
-  # end
+  def get_all_goals
+    rem_goals = []
 
-  # def transfer_data
-  #   first = self.requested.first_name
-  #   last = self.requested.last_name
-  #   self.update(first_name: first, last_name: last)
-  # end
+    # self.reminders.each do |r|
+    #   rem_goals.push(r.goals) if r.goals.length != 0
+    # end
+    # byebug
+    rem_goals.push(self.goals)
+    rem_goals.push(self.reminder_goals).flatten
+  end
+
 
 end

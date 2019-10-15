@@ -11,6 +11,7 @@ class Api::V1::AuthController < ApplicationController
         user: UserSerializer.new(@user),
         reminders: @user.reminders.map { |r| ReminderSerializer.new(r) },
         contacts: @user.contacts.map { |c| ContactSerializer.new(c) },
+        goals: @uaer.contacts.map { |c| c.get_all_goals }.flatten,
         token: token,
         authenticated: true
         }, status: :accepted
