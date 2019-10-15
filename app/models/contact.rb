@@ -3,6 +3,7 @@ class Contact < ApplicationRecord
   # belongs_to :requested, foreign_key: "requested_id", class_name: "User"
   belongs_to :user
   has_many :reminders, dependent: :destroy
+  has_many :goals, as: :originator
 
   # accepts_nested_attributes_for :requested, allow_destroy: true
 

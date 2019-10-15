@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_015001) do
+ActiveRecord::Schema.define(version: 2019_10_15_010306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,19 @@ ActiveRecord::Schema.define(version: 2019_09_30_015001) do
     t.text "details"
     t.string "first_name"
     t.string "last_name"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.datetime "due_date"
+    t.boolean "complete", default: false
+    t.datetime "comeplete_date"
+    t.string "originator_type"
+    t.bigint "originator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["originator_type", "originator_id"], name: "index_goals_on_originator_type_and_originator_id"
   end
 
   create_table "reminders", force: :cascade do |t|
