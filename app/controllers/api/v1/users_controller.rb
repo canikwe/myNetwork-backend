@@ -47,9 +47,6 @@ end
   end
 
   private
-  # def get_user
-  #   @user = User.find(params[:id])
-  # end
 
   def user_params
     params.permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm, :splash_image, :photo)

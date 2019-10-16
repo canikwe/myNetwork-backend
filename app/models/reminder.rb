@@ -11,7 +11,6 @@ class Reminder < ApplicationRecord
   end
 
   def resetSnooze
-    # byebug
     if !self.current.nil? && self.current.to_date < DateTime.now.to_date
       self.update(snoozed: false) if self.snoozed
     end
@@ -62,6 +61,5 @@ class Reminder < ApplicationRecord
     return current_date == today
 
   end
-
 
 end
