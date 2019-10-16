@@ -1,7 +1,7 @@
 class Api::V1::AuthController < ApplicationController
+  skip_before_action :authorized, :only [:create]
 
   def create
-
     @user = User.find_by(username: login_params[:username])
     if @user && @user.authenticate(login_params[:password])
 
@@ -11,8 +11,8 @@ class Api::V1::AuthController < ApplicationController
         user: UserSerializer.new(@user),
         reminders: @user.reminders.map { |r| ReminderSerializer.new(r) },
         contacts: @user.contacts.map { |c| ContactSerializer.new(c) },
-        goals: @uaer.contacts.map { |c| c.get_all_goals }.flatten,
-        token: token,
+        goals: @user.contacts.map { |c| c.get_all_goals }.flatten,
+        token: encode({user_id: @user.id}),
         authenticated: true
         }, status: :accepted
     else
@@ -22,6 +22,7 @@ class Api::V1::AuthController < ApplicationController
       }, status: :not_acceptable
     end
   end
+
 
   private
   def login_params
