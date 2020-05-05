@@ -1,5 +1,4 @@
 class Reminder < ApplicationRecord
-  has_many :goals, as: :originator
   belongs_to :contact
 
   def friend_id

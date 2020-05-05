@@ -1,18 +1,18 @@
 class Api::V1::AuthController < ApplicationController
-  skip_before_action :authorized, :only [:create]
+  skip_before_action :authorized, only: [:create]
 
   def create
-    @user = User.find_by(username: login_params[:username])
-    if @user && @user.authenticate(login_params[:password])
+    user = User.find_by(username: login_params[:username])
+    if user && user.authenticate(login_params[:password])
 
-      token = encode({user_id: @user.id})
+      token = encode({user_id: user.id})
+
       render json: {
         message: 'Authenticated! You are lgged in',
-        user: UserSerializer.new(@user),
-        reminders: @user.reminders.map { |r| ReminderSerializer.new(r) },
-        contacts: @user.contacts.map { |c| ContactSerializer.new(c) },
-        goals: @user.contacts.map { |c| c.get_all_goals }.flatten,
-        token: encode({user_id: @user.id}),
+        user: UserSerializer.new(user),
+        reminders: user.reminders.map { |r| ReminderSerializer.new(r) },
+        contacts: user.contacts.map { |c| ContactSerializer.new(c) },
+        token: token,
         authenticated: true
         }, status: :accepted
     else

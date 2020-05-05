@@ -7,7 +7,6 @@ class Api::V1::UsersController < ApplicationController
       user: UserSerializer.new(@user),
       reminders: @user.reminders.map { |r| ReminderSerializer.new(r) },
       contacts: @user.contacts.map { |c| ContactSerializer.new(c) },
-      goals: @user.contacts.map { |c| c.get_all_goals }.flatten
     }, status: :accepted
 end
 
@@ -35,7 +34,6 @@ end
         user: UserSerializer.new(user),
         reminders: user.reminders.map { |r| ReminderSerializer.new(r) },
         contacts: user.contacts.map { |c| ContactSerializer.new(c) },
-        goals: user.contacts.map { |c| c.get_all_goals }.flatten,
         token: encode({user_id: user.id}),
         authenticated: true
       }, status: :accepted

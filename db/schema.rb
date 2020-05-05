@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_020047) do
+ActiveRecord::Schema.define(version: 2019_09_30_015001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,19 +44,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_020047) do
     t.text "details"
     t.string "first_name"
     t.string "last_name"
-  end
-
-  create_table "goals", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.datetime "due_date"
-    t.boolean "complete", default: false
-    t.datetime "comeplete_date"
-    t.string "originator_type"
-    t.bigint "originator_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["originator_type", "originator_id"], name: "index_goals_on_originator_type_and_originator_id"
+    t.integer "requested_id"
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -85,6 +73,8 @@ ActiveRecord::Schema.define(version: 2019_10_16_020047) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.text "splash_image"
+    t.bigint "requested_id"
+    t.bigint "requestor_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
