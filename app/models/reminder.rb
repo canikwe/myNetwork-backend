@@ -1,5 +1,6 @@
 class Reminder < ApplicationRecord
   belongs_to :contact
+  has_many :encounters
 
   def friend_id
     self.contact.user_id

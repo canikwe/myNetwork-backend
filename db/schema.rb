@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_30_015001) do
+ActiveRecord::Schema.define(version: 2020_05_05_231814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,7 +44,17 @@ ActiveRecord::Schema.define(version: 2019_09_30_015001) do
     t.text "details"
     t.string "first_name"
     t.string "last_name"
-    t.integer "requested_id"
+  end
+
+  create_table "encounters", force: :cascade do |t|
+    t.integer "contact_id"
+    t.integer "reminder_id"
+    t.string "verb"
+    t.text "details"
+    t.integer "rating", default: 3, null: false
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reminders", force: :cascade do |t|
@@ -73,8 +83,6 @@ ActiveRecord::Schema.define(version: 2019_09_30_015001) do
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.text "splash_image"
-    t.bigint "requested_id"
-    t.bigint "requestor_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
