@@ -1,14 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
   attributes :id, :name, :first_name, :last_name, :avatar, :bio, :email, :username, :splash_image
-  # has_many :contacts
-  # has_many :reminders, through: :contacts
+  # include Rails.application.routes.url_helpers
 
-  # def friends
-  #   friends = {}
-  #   self.object.requests.each do |r|
-  #     friends[r.requested.name] = r.alerts
-  #   end
-  #   friends
+  # def photo
+  #   rails_blob_path(object.photo, only_path: true) if object.photo.attached?
   # end
 
 end

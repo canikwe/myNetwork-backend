@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_145236) do
+ActiveRecord::Schema.define(version: 2020_05_08_023153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,17 +37,29 @@ ActiveRecord::Schema.define(version: 2019_04_17_145236) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.integer "requestor_id"
-    t.integer "requested_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "kind"
     t.text "details"
+    t.string "first_name"
+    t.string "last_name"
+  end
+
+  create_table "encounters", force: :cascade do |t|
+    t.integer "contact_id"
+    t.integer "reminder_id"
+    t.string "verb"
+    t.text "details"
+    t.integer "rating", default: 3, null: false
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "reminders", force: :cascade do |t|
     t.string "msg"
-    t.datetime "start_date"
+    t.date "start_date"
     t.integer "interval"
     t.string "period"
     t.boolean "snoozed", default: false
@@ -56,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_04_17_145236) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "recurring", default: true
-    t.datetime "end_date"
+    t.date "end_date"
     t.integer "priority"
   end
 
@@ -67,14 +79,10 @@ ActiveRecord::Schema.define(version: 2019_04_17_145236) do
     t.string "email"
     t.string "avatar"
     t.text "bio"
-    t.bigint "requestor_id"
-    t.bigint "requested_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest"
     t.text "splash_image"
-    t.index ["requested_id"], name: "index_users_on_requested_id"
-    t.index ["requestor_id"], name: "index_users_on_requestor_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
