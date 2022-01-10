@@ -1,24 +1,23 @@
 import React, { Component } from 'react';
 import './App.scss';
 import { connect } from 'react-redux'
-import { testAction, fetchingUser, notifyReminders, clearLoading } from './redux/actions'
+import { testAction, fetchingUser, notifyReminders, clearLoading, clearError } from './redux/actions'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Homepage from './containers/Homepage'
 import Login from './components/Login'
 import ContactForm from './components/ContactForm'
-import NewUserContainer from './containers/NewUserContainer'
-import EditUserContainer from './containers/EditUserContainer'
 import NavBar from './components/NavBar'
 import Calendar from './components/Calendar'
 import ContactCardContainer from './containers/ContactCardContainer'
 import { isEmpty } from 'lodash'
 import toast from 'toasted-notes'
-import { Image } from 'semantic-ui-react'
+import { Image, Icon } from 'semantic-ui-react'
 import 'toasted-notes/src/styles.css'
 import Home from './containers/Home'
 import { formatReminderToast } from './helper/functions';
 import Footer from './components/Footer';
 import ContactShow from './components/ContactShow';
+import UserForm from './components/UserForm';
 
 class App extends Component {
 
@@ -41,6 +40,17 @@ class App extends Component {
         this.props.notifyReminders(r)
       }
     })
+
+    if (this.props.notifications.length >= 1 || !isEmpty(this.props.notifications)) {
+      if (this.props.notifications.status !== 500) {
+        console.log(isEmpty(this.props.notifications.message))
+        this.props.notifications.message.forEach(e => toast.notify(e, { duration: 5000 }))
+        this.props.clearError()
+      } else {
+        toast.notify(this.props.notifications.error, { duration: 5000 })
+        this.props.clearError()
+      }
+    }
   }
 
   alerts = reminder => {
@@ -53,8 +63,15 @@ class App extends Component {
         <div className="App">
           <NavBar />
           <div className='loading'>
-            <Image
-              centered src='./images/loading_screen.gif' />
+            {/* <Image
+              centered 
+              src='./images/loading_screen.gif'
+            /> */}
+            <Icon
+              name='spinner'
+              loading
+              size='massive'
+            />
           </div>
         </div>
       )
@@ -62,7 +79,7 @@ class App extends Component {
       return (
         <div className="App">
           <NavBar />
-          <main>
+          <main className='main-content'>
             <Switch>
 
               <Route exact path='/' render={() => {
@@ -80,13 +97,13 @@ class App extends Component {
               }}
               />
 
-              <Route exact path='/signup' render={() => {
-                return isEmpty(this.props.user) ? <NewUserContainer /> : <Redirect to='/' />
+              <Route exact path='/signup' render={routeProps => {
+                return isEmpty(this.props.user) ? <UserForm title='Sign Up Here' {...routeProps} /> : <Redirect to='/' />
               }}
               />
 
-              <Route exact path='/profile/edit' render={() => {
-                return !isEmpty(this.props.user) ? <EditUserContainer /> : <Redirect to='/login' />
+              <Route exact path='/profile/edit' render={routeProps => {
+                return !isEmpty(this.props.user) ? <UserForm title='Account Settings' {...routeProps} /> : <Redirect to='/login' />
               }} 
               />
 
@@ -144,7 +161,9 @@ const mapDispatchToProps = dispatch => {
     //Delete after auth implementation!!
     fetchingUser: (token) => dispatch(fetchingUser(token)),
     notifyReminders: (r) => dispatch(notifyReminders(r)),
-    clearLoading: () => dispatch(clearLoading())
+    clearLoading: () => dispatch(clearLoading()),
+    clearError: () => dispatch(clearError())
+
   }
 }
 

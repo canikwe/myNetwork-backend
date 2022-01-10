@@ -1,9 +1,17 @@
 /* https://coolors.co/1b1c1d-2185d0-f3efe0-7fefbd-cba135 */
 $base-dark: #1b1c1d;
 $primary: #2185d0;
-$base-light: #f3efe0;
+$base-light: #FBFEF9;
 $accent1: #7fefbd;
 $accent2: #cba135;
+
+// https://coolors.co/1b1c1d-0dab76-fbfef9-139a43-0b5d1e
+//https://coolors.co/1b1c1d-f0edee-07393c-139a43-2c666e
+// https://coolors.co/1b1c1d-f4ebeb-a3b18a-139a43-588157
+
+body {
+  background-color: $base-light;
+}
 
 nav {
   background-color: $base-dark;
@@ -32,9 +40,9 @@ nav {
   width: 100%
 }
 
-main {
-  padding: 0 5%;
-}
+// main {
+//   padding: 0 5%;
+// }
 
 .featured-contacts {
   h3 {
@@ -50,7 +58,7 @@ main {
 footer {
   margin-top: 20px;
   padding: 15px 0;
-  background-color: $primary;
+  background-color: #0B5D1E;
   text-align: center;
 
   div.ui.bulleted.horizontal.link.list {
@@ -61,28 +69,45 @@ footer {
 }
 
 .contact-details {
-  min-height: 80vh;
-  width: 60%;
+  min-height: 85vh;
+  width: 50%;
   margin: auto;
 
   @media only screen and (max-width: 765px) {
-    width: 100%
+    width: 100%;
+
+  }
+
+  .contact-details-splash {
+    max-height: 50vh;
+    overflow: hidden;
+
+    img.ui.image {
+      object-fit: fill;
+      width: 100%
+    }
   }
 }
 
-//  .wrapper {
-//   /* text-align: center; */
-//   // padding: 0 5%;
-//   /* display: block;
-//   justify-content: center;
-//   flex-direction: center;  */
-// }
+ .wrapper {
+  /* text-align: center; */
+  padding: 0 5%;
+  /* display: block;
+  justify-content: center;
+  flex-direction: center;  */
+}
 
 .loading {
   /* margin: 10%; */
-  display: block;
+  display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
+  height: 70vh;
+
+  @media only screen and (max-width: 765px) {
+    height: 40vh;
+  }
+
 }
 
 .filter {
@@ -142,31 +167,43 @@ footer {
    justify-content: space-around;
  }
 
+ .main-content {
+   min-height: 95vh;
+ }
+
  .calendar {
    height: 800px
  }
 
-  .date-picker {
-   margin: 0;
-   max-width: 100%;
-   -webkit-box-flex: 1;
-   -ms-flex: 1 0 auto;
-   flex: 1 0 auto;
-   outline: 0;
-   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-   text-align: left;
-   line-height: 1.21428571em;
-   font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
-   padding: .67857143em 1em;
-   background: #fff;
-   /* border: 1px solid rgba(34, 36, 38, .15); */
-   border: 0;
-   color: rgba(0, 0, 0, .87);
-   border-radius: .28571429rem;
-  transition: box-shadow .1s ease,border-color .1s ease,-webkit-box-shadow .1s ease;
- }
+.date-picker {
+  margin: 0;
+  max-width: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  line-height: 1.21428571em;
+  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  padding: .67857143em 1em;
+  background: #fff;
+  /* border: 1px solid rgba(34, 36, 38, .15); */
+  border: 0;
+  color: rgba(0, 0, 0, .87);
+  border-radius: .28571429rem;
+transition: box-shadow .1s ease,border-color .1s ease,-webkit-box-shadow .1s ease;
+}
 
- .ui.transparent.input>input {
-   text-align: center;
-   font-weight: bold;
- }
+.ui.transparent.input>input {
+  text-align: center;
+  font-weight: bold;
+}
+
+.ui.card.contact-card {
+  background-color: #9898981c;
+}
+
+.ui.cards a.card:hover {
+    background: #ffffff57;
+}

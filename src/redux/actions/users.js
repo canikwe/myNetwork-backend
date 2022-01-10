@@ -44,7 +44,7 @@ const addingUser = user => {
     fetch(`${URL()}/users`, {
       method: 'POST',
       // headers: {'Content-Type': 'application/json'},
-      body: user
+      body: JSON.stringify({user})
     })
       .then(res => res.json())
       .then(data => {
@@ -105,7 +105,7 @@ const updatingUser = (user, id) => {
     fetch(`${URL()}/users/${id}`, {
       method: 'PATCH',
       headers: authHeaders(),
-      body: user
+      body: JSON.stringify(user)
     })
       .then(res => res.json())
       .then(data => {

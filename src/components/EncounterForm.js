@@ -44,7 +44,7 @@ const EncounterForm = ({ open, handleOpen, contact, handleSnooze, featuredRemind
       trigger={
         handleSnooze ?
         <Button
-          primary
+          color='green'
           inverted
           icon='checkmark'
           labelPosition='left'
