@@ -1,5 +1,5 @@
 import { ADD_CONTACT, DELETE_CONTACT, UPDATE_CONTACT, UPDATE_SEARCH_TERM } from '../types'
-import { authHeaders, URL } from '../types'
+import { authHeaders, BASE_URL } from '../types'
 
 const addContact = newContactObj => {
   return { type: ADD_CONTACT, contact: newContactObj }
@@ -7,7 +7,7 @@ const addContact = newContactObj => {
 
 const addingContact = contact => {
   return (dispatch) => {
-    fetch(`${URL()}/contacts`, {
+    fetch(`${BASE_URL()}/contacts`, {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify(contact)
@@ -23,7 +23,7 @@ const updateContact = contact => {
 
 const updatingContact = (id, contact) => {
   return (dispatch) => {
-    fetch(`${URL()}/contacts/${id}`, {
+    fetch(`${BASE_URL()}/contacts/${id}`, {
       method: 'PATCH',
       headers: authHeaders(),
       body: JSON.stringify(contact)
@@ -39,7 +39,7 @@ const deleteContact = contact => {
 
 const deletingContact = contact => {
   return dispatch => {
-    fetch(`${URL()}/contacts/${contact.id}`, {
+    fetch(`${BASE_URL()}/contacts/${contact.id}`, {
       method: 'DELETE',
       headers: authHeaders()
     })

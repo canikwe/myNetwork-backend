@@ -1,10 +1,10 @@
 import { ADD_REMINDER, UPDATE_REMINDER, DELETE_REMINDER, NOTIFY_REMINDERS, SET_PRIORITY_FILTER, SET_FEATURED_REMINDER } from '../types'
-import { authHeaders, URL } from '../types'
+import { authHeaders, BASE_URL } from '../types'
 
 const addingReminder = newReminderData => {
   return (dispatch) => {
     
-    fetch(`${URL()}/reminders`, {
+    fetch(`${BASE_URL()}/reminders`, {
       method: 'POST',
       headers: authHeaders(),
       body: JSON.stringify(newReminderData)
@@ -28,7 +28,7 @@ const updateReminder = reminderObj => {
 
 const updatingReminder = reminder => {
   return (dispatch) => {
-    fetch(`${URL()}/reminders/${reminder.id}`, {
+    fetch(`${BASE_URL()}/reminders/${reminder.id}`, {
       method: 'PATCH',
       headers: authHeaders(),
       body: JSON.stringify(reminder)
@@ -47,7 +47,7 @@ const deleteReminder = reminderObj => {
 
 const deletingReminder = reminder => {
   return (dispatch) => {
-    fetch(`${URL()}/reminders/${reminder.id}`, {
+    fetch(`${BASE_URL()}/reminders/${reminder.id}`, {
       method: "DELETE",
       headers: authHeaders()
     })

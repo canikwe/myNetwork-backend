@@ -1,5 +1,5 @@
 import { FETCHED_USER, LOADING_USER, UPDATING_USER, THROW_ERROR, CLEAR_ERROR, LOGOUT_USER, CLEAR_LOADING } from '../types'
-import { authHeaders, URL } from '../types'
+import { authHeaders, BASE_URL } from '../types'
 
 //Initial User Fetch, loading into state, and error handling
 const fetchedUser = payload => {
@@ -22,7 +22,7 @@ const fetchingUser = token => {
   return (dispatch) => {
     dispatch(loadingUser)
 
-    fetch(`${URL()}/profile`, {
+    fetch(`${BASE_URL()}/profile`, {
       headers: authHeaders()
     })
       .then(res => res.json())
@@ -41,7 +41,7 @@ const addingUser = user => {
   return (dispatch) => {
     dispatch(loadingUser)
 
-    fetch(`${URL()}/users`, {
+    fetch(`${BASE_URL()}/users`, {
       method: 'POST',
       // headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({user})
@@ -66,7 +66,7 @@ const authenticatingUser = params => {
   return (dispatch) => {
     dispatch(loadingUser)
 
-    fetch(`${URL()}/login`, {
+    fetch(`${BASE_URL()}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ const updateUser = user => {
 
 const updatingUser = (user, id) => {
   return dispatch => {
-    fetch(`${URL()}/users/${id}`, {
+    fetch(`${BASE_URL()}/users/${id}`, {
       method: 'PATCH',
       headers: authHeaders(),
       body: JSON.stringify(user)

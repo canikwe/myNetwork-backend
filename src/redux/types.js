@@ -1,5 +1,5 @@
-export const URL = () => {
-  return `http://localhost:3000/api/v1`
+export const BASE_URL = () => {
+  return process.env.REACT_APP_BASE_URL
 }
 
 export const authHeaders = () => {
