@@ -8,7 +8,7 @@ class User < ApplicationRecord
 # Associations
   has_many :contacts, dependent: :destroy
   has_many :reminders, through: :contacts
-  has_one_attached :photo
+  # has_one_attached :photo
 
 # Authentication
   has_secure_password

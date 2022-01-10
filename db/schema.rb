@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_231814) do
+ActiveRecord::Schema.define(version: 2020_05_08_023153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_231814) do
 
   create_table "reminders", force: :cascade do |t|
     t.string "msg"
-    t.datetime "start_date"
+    t.date "start_date"
     t.integer "interval"
     t.string "period"
     t.boolean "snoozed", default: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_231814) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "recurring", default: true
-    t.datetime "end_date"
+    t.date "end_date"
     t.integer "priority"
   end
 

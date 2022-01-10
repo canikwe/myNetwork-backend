@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :get_user, only: [:show, :update]
   skip_before_action :authorized, only: [:create]
 
   def profile
@@ -47,7 +46,7 @@ end
   private
 
   def user_params
-    params.permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm, :splash_image, :photo)
+    params.permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm)
   end
 
   def contact_params

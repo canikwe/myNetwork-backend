@@ -1,7 +1,7 @@
 class Contact < ApplicationRecord
   belongs_to :user
   has_many :reminders, dependent: :destroy
-  has_many :encounters
+  has_many :encounters, dependent: :destroy
 
   def name
     "#{self.first_name} #{self.last_name}"
