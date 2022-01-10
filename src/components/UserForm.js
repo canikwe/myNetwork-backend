@@ -148,7 +148,7 @@ class UserForm extends React.Component {
           </Grid.Column>
           </Grid>
           {/* {this.displayAlert()} */}
-          <img src={`http://localhost:3000${this.props.user.photo}`} />
+          <img alt='user-profile-pic' src={`http://localhost:3000${this.props.user.photo}`} />
 
         </Segment>
       </div>

@@ -1,11 +1,11 @@
 import React from 'react'
 // import Stat from '../components/Stat'
 
-const dummyArray = [
-  {id: 1, todo: 'texts', number: 2},
-  {id: 2, todo: 'emails', number: 4},
-  {id: 3, todo: 'conversations', number: 10}
-]
+// const dummyArray = [
+//   {id: 1, todo: 'texts', number: 2},
+//   {id: 2, todo: 'emails', number: 4},
+//   {id: 3, todo: 'conversations', number: 10}
+// ]
 
 const dummyHash = {
   texts: 2,

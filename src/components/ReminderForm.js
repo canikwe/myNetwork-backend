@@ -1,8 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addingReminder, updatingReminder } from '../redux/actions'
-import { Header, Segment, Grid, Icon, Transition, Dropdown, Checkbox, Input, Button, Modal } from 'semantic-ui-react'
-import DateTimePicker from 'react-datetime-picker';
+import {  Dropdown, Input, Button, Modal } from 'semantic-ui-react'
 import moment from 'moment'
 
 class ReminderForm extends React.Component {

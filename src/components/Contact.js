@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Card, Icon, Image, Dimmer, Button} from 'semantic-ui-react'
+import { Card, Icon, Image, Dimmer } from 'semantic-ui-react'
 
 class Contact extends Component {
     constructor(){
@@ -35,18 +35,18 @@ class Contact extends Component {
                                 <Card.Description>
                                     {contact.details}
                                 </Card.Description>
-                                <a onClick={this.handleShow}>More... </a>
+                                <button onClick={this.handleShow}>More... </button>
                             </Card.Content>
                             <Card.Content extra>
-                                <a>
+                                <button>
                                     <Icon name='leaf' />
                                     2 Upcoming Reminders
-                                </a>
+                                </button>
                                 <br />
-                                <a>
+                                <button>
                                     <Icon name='exclamation' />
                                     1 Overdue Task
-                                </a>
+                                </button>
                             </Card.Content>
                         {/* </Card> */}
 

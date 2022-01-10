@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, Header, Container, List, Icon, Divider, Modal, Grid, Button, Label } from 'semantic-ui-react'
+import { Image, Header, List, Icon, Modal, Grid, Button } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import EditReminder from './EditReminder'
 import moment from 'moment';

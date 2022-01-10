@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { addingContact, updatingContact } from '../redux/actions'
-import { Segment, Button, Grid, Dropdown } from 'semantic-ui-react'
+import { Button, Grid, Dropdown } from 'semantic-ui-react'
 import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css';
 

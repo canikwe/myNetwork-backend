@@ -11,7 +11,7 @@ import Calendar from './components/Calendar'
 import ContactCardContainer from './containers/ContactCardContainer'
 import { isEmpty } from 'lodash'
 import toast from 'toasted-notes'
-import { Image, Icon } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import 'toasted-notes/src/styles.css'
 import Home from './containers/Home'
 import { formatReminderToast } from './helper/functions';
