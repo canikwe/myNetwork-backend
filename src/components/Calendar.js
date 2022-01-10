@@ -9,6 +9,7 @@ import { deletingReminder } from '../redux/actions'
 import DeleteConfirmation from './DeleteConfirmation';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import Filter from './Filter'
+import { formatReminderToast } from '../helper/functions'
 
 const localizer = BigCalendar.momentLocalizer(moment)
 
@@ -31,7 +32,7 @@ class Calendar extends PureComponent {
 
   eventStyleGetter = (e, start, end, isSelected) => {
     let style = {
-      backgroundColor: 'white',
+      backgroundColor: 'unset',
       borderRadius: '0px',
       opacity: 0.8,
       color: 'black',
@@ -55,7 +56,8 @@ class Calendar extends PureComponent {
   }
 
   filterReminders = () => {
-    return this.props.recurringReminders.filter(r => this.props.calendarFilter === '' ? r : r.priority === this.props.calendarFilter)
+    const filteredReminders =  this.props.recurringReminders.filter(r => this.props.calendarFilter === '' ? r : r.priority === this.props.calendarFilter)
+    return filteredReminders.map(r => ({...r, full_msg: formatReminderToast(r, this.props.contacts)}))
   }
 
   render() {
@@ -74,7 +76,7 @@ class Calendar extends PureComponent {
             events={ this.filterReminders() }
             startAccessor='start'
             endAccessor='start'
-            titleAccessor='msg'
+            titleAccessor='full_msg'
             defaultView='month'
             views={['month', 'day', 'week']}
             alldayaccessor='all_day'

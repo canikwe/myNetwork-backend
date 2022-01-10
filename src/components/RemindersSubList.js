@@ -34,7 +34,7 @@ const RemindersSubList = ({ reminders, contacts, title, setFeaturedReminder }) =
                 {
                   !r.snoozed && title.includes('Today') ?
                     <List.Content floated='right'>
-                      <Button onClick={() => setFeaturedReminder(r)} primary>Snooze</Button>
+                      <Button onClick={() => setFeaturedReminder(r)} color='yellow'>Snooze</Button>
                     </List.Content> 
                     : null
                 }

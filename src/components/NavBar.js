@@ -31,7 +31,7 @@ class NavBar extends Component {
         <Label
           // className='filter'
           size='large'
-          color='blue'
+          color='yellow'
           circular>{`${this.props.user.first_name.slice(0, 1)}${this.props.user.last_name.slice(0, 1)}`}
         </Label>
       </span>
@@ -63,8 +63,10 @@ class NavBar extends Component {
               // active={ this.props.location.pathname === '/' } 
               as={ Link } to='/'
             >
-              <Icon name='leaf' size='big' color='teal' />
+              <Icon name='leaf' size='big' color='green' />
             </Menu.Item>
+
+            <Menu.Item header>myBudee</Menu.Item>
 
             <Menu.Menu  position='right'>
               <Menu.Item

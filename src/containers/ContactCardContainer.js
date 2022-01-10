@@ -17,7 +17,7 @@ class ContactCardContainer extends PureComponent {
   render() {
     
     return(
-      <>
+      <div className='wrapper'>
       <h2>
         Contact Cards
       </h2>
@@ -89,7 +89,7 @@ class ContactCardContainer extends PureComponent {
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      </>
+      </div>
     )
   }
 }

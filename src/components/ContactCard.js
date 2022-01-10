@@ -14,7 +14,7 @@ class ContactCard extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Card as={Link} to={`/friends/${this.props.contact.id}`}>
+        <Card as={Link} to={`/friends/${this.props.contact.id}`} className='contact-card'>
           <Card.Content>
             <Image floated='right' size='mini' src={this.props.contact.avatar} />
             <Card.Header>{this.props.contact.name}</Card.Header>

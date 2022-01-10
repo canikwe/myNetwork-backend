@@ -140,6 +140,14 @@ class ConactCardShow extends React.PureComponent {
             </Header>
           </Grid.Column>
         </Grid.Row>
+        
+        <Grid.Row>
+          <Grid.Column>
+            <div className='contact-details-splash'>
+              <Image src={require('../helper/images/undraw_online_connection_6778.svg')} />
+            </div>
+          </Grid.Column>
+        </Grid.Row>
 
         <Grid.Row columns={2}>
           <Grid.Column width={4}>
