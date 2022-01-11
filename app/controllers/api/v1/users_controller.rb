@@ -27,6 +27,7 @@ end
 
   def create
     user = User.new(user_params)
+    byebug
     if user.save
       render json: {
         message: 'Thanks for signing up! Allow us to log you in 😬',
@@ -46,7 +47,7 @@ end
   private
 
   def user_params
-    params.permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm)
+    params.require(:user).permit(:id, :first_name, :last_name, :username, :email, :avatar, :bio, :requestor_id, :requested_id, :password, :password_confirm)
   end
 
   def contact_params
