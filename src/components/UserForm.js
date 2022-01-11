@@ -2,8 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { addingUser, updatingUser } from '../redux/actions'
 import { Segment, Grid, Button } from 'semantic-ui-react'
-// import { isEmpty } from 'lodash'
-// import toast from 'toasted-notes'
 import 'toasted-notes/src/styles.css';
 
 class UserForm extends React.Component {
@@ -18,7 +16,6 @@ class UserForm extends React.Component {
       email: '',
       username: '',
       password: '',
-      // password_confirm: '',
       splash_image: ''
     }
   }
@@ -29,19 +26,6 @@ class UserForm extends React.Component {
       this.setState({ id, avatar, bio, first_name, last_name, email, username, splash_image })
     }
   }
-
-  // componentDidUpdate() {
-  //   if (this.props.notifications.length >= 1 || !isEmpty(this.props.notifications)) {
-  //     if (this.props.notifications.status !== 500) {
-  //       console.log(isEmpty(this.props.notifications.message))
-  //       this.props.notifications.message.forEach(e => toast.notify(e, {duration: null}))
-  //       this.props.clearError()
-  //     } else {
-  //       toast.notify(this.props.notifications.error, {duration: null})
-  //       this.props.clearError()
-  //     }
-  //   }
-  // }
 
   handleChange = e => {
     if (e.target.name !== 'photo'){
