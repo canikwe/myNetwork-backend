@@ -27,7 +27,6 @@ end
 
   def create
     user = User.new(user_params)
-    byebug
     if user.save
       render json: {
         message: 'Thanks for signing up! Allow us to log you in 😬',
