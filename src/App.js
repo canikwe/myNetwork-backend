@@ -1,13 +1,7 @@
 import React, { Component } from "react";
 import "./App.scss";
 import { connect } from "react-redux";
-import {
-  testAction,
-  fetchingUser,
-  notifyReminders,
-  clearLoading,
-  clearError,
-} from "./redux/actions";
+import { testAction, fetchingUser, notifyReminders, clearLoading, clearError } from "./redux/actions";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Homepage from "./containers/Homepage";
 import Login from "./components/Login";
@@ -42,25 +36,10 @@ class App extends Component {
         this.props.notifyReminders(r);
       }
     });
-
-    // if (
-    //   this.props.notifications.length >= 1 ||
-    //   !isEmpty(this.props.notifications)
-    // ) {
-    //   if (this.props.notifications.status !== 500) {
-    //     this.props.notifications.message.forEach(console.log);
-    //     this.props.clearError();
-    //   } else {
-    //     this.props.notifications.message.forEach(console.log);
-    //     this.props.clearError();
-    //   }
-    // }
   }
 
   alerts = (reminder) => {
-    return reminder.match
-      ? console.log(formatReminderToast(reminder, this.props.contacts))
-      : null;
+    return reminder.match ? console.log(formatReminderToast(reminder, this.props.contacts)) : null;
   };
 
   render() {
@@ -69,10 +48,6 @@ class App extends Component {
         <div className="App">
           <NavBar />
           <div className="loading">
-            {/* <Image
-              centered 
-              src='./images/loading_screen.gif'
-            /> */}
             <Icon name="spinner" loading size="massive" />
           </div>
         </div>
@@ -87,11 +62,7 @@ class App extends Component {
                 exact
                 path="/"
                 render={() => {
-                  return isEmpty(this.props.user) ? (
-                    <Redirect to="/login" />
-                  ) : (
-                    <Homepage />
-                  );
+                  return isEmpty(this.props.user) ? <Redirect to="/login" /> : <Homepage />;
                 }}
               />
 
@@ -99,11 +70,7 @@ class App extends Component {
                 exact
                 path="/login"
                 render={() => {
-                  return isEmpty(this.props.user) ? (
-                    <Login />
-                  ) : (
-                    <Redirect to="/" />
-                  );
+                  return isEmpty(this.props.user) ? <Login /> : <Redirect to="/" />;
                 }}
               />
 
@@ -111,11 +78,7 @@ class App extends Component {
                 exact
                 path="/contacts/new"
                 render={() => {
-                  return !isEmpty(this.props.user) ? (
-                    <ContactForm />
-                  ) : (
-                    <Redirect to="/login" />
-                  );
+                  return !isEmpty(this.props.user) ? <ContactForm /> : <Redirect to="/login" />;
                 }}
               />
 
@@ -147,11 +110,7 @@ class App extends Component {
                 exact
                 path="/calendar"
                 render={() => {
-                  return !isEmpty(this.props.user) ? (
-                    <Calendar />
-                  ) : (
-                    <Redirect to="/login" />
-                  );
+                  return !isEmpty(this.props.user) ? <Calendar /> : <Redirect to="/login" />;
                 }}
               />
 
@@ -159,11 +118,7 @@ class App extends Component {
                 exact
                 path="/friends"
                 render={() => {
-                  return !isEmpty(this.props.user) ? (
-                    <ContactCardContainer />
-                  ) : (
-                    <Redirect to="/login" />
-                  );
+                  return !isEmpty(this.props.user) ? <ContactCardContainer /> : <Redirect to="/login" />;
                 }}
               />
 
@@ -172,12 +127,8 @@ class App extends Component {
                 path="/friends/:id"
                 render={(props) => {
                   const friendId = parseInt(props.match.params.id);
-                  const friend = this.props.contacts.find(
-                    (c) => c.id === friendId
-                  );
-                  const reminders = this.props.reminders.filter(
-                    (r) => r.contact_id === friendId
-                  );
+                  const friend = this.props.contacts.find((c) => c.id === friendId);
+                  const reminders = this.props.reminders.filter((r) => r.contact_id === friendId);
 
                   return !isEmpty(this.props.user) && friend ? (
                     <div className="contact-details">
