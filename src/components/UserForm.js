@@ -1,28 +1,30 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { addingUser, updatingUser } from "../redux/actions";
 import { Segment, Grid, Button } from "semantic-ui-react";
-import "toasted-notes/src/styles.css";
+import { isEmpty } from "lodash";
 
-class UserForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      id: "",
-      avatar:
-        "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png",
-      bio: "",
-      first_name: "",
-      last_name: "",
-      email: "",
-      username: "",
-      password: "",
-      splash_image: "",
-    };
-  }
+function UserForm(props) {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    if (this.props.user.id) {
+  const [form, setFormState] = useState({
+    id: "",
+    avatar:
+      "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png",
+    bio: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    username: "",
+    password: "",
+    splash_image: "",
+  });
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    if (!isEmpty(user)) {
+      console.log("here");
       const {
         id,
         avatar,
@@ -32,8 +34,8 @@ class UserForm extends React.Component {
         email,
         username,
         splash_image,
-      } = this.props.user;
-      this.setState({
+      } = user;
+      setFormState({
         id,
         avatar,
         bio,
@@ -41,65 +43,51 @@ class UserForm extends React.Component {
         last_name,
         email,
         username,
-        splash_image,
+        splash_image: splash_image || "",
       });
     }
-  }
+  }, [user]);
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     if (e.target.name !== "photo") {
-      this.setState({
+      setFormState({
+        ...form,
         [e.target.name]: e.target.value,
       });
     } else {
-      this.setState({
+      setFormState({
+        ...form,
         [e.target.name]: e.target.files[0],
       });
     }
   };
 
-  handleSubmit = () => {
-    const formObj = { ...this.state };
+  const handleSubmit = () => {
+    const formObj = { ...form };
 
-    if (this.props.user.id) {
-      this.props.updatingUser(formObj, this.state.id);
+    if (user.id) {
+      dispatch(updatingUser(formObj, user.id));
     } else {
-      this.props.addingUser(formObj);
+      dispatch(addingUser(formObj));
     }
 
-    this.props.history.push("/");
-    this.resetState();
+    props.history.push("/");
   };
 
-  resetState = () => {
-    this.setState({
-      avatar:
-        "https://ayogo.com/wp-content/uploads/2015/06/jp-avatar-placeholder.png",
-      bio: "",
-      first_name: "",
-      last_name: "",
-      email: "",
-      username: "",
-      password: "",
-    });
-  };
-
-  render() {
-    console.log(this.props);
-    const {
-      avatar,
-      bio,
-      first_name,
-      last_name,
-      email,
-      username,
-      password,
-      splash_image,
-    } = this.state;
-    return (
-      <div className="wrapper">
-        <h2>{this.props.title}</h2>
-
+  const {
+    avatar,
+    bio,
+    first_name,
+    last_name,
+    email,
+    username,
+    password,
+    splash_image,
+  } = form;
+  return (
+    <div className="wrapper">
+      <h2>{props.title}</h2>
+      <form onChange={(e) => console.log(e.target)}>
         <Segment raised>
           <Grid columns={2}>
             <Grid.Column>
@@ -117,12 +105,9 @@ class UserForm extends React.Component {
                   type="text"
                   name="avatar"
                   value={avatar}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
-
-                {/* <input type='file' name='splash_image' accept='image/*' onChange={this.handleChange}></input> */}
-
                 {splash_image !== "" ? (
                   <Segment>
                     <img
@@ -139,7 +124,7 @@ class UserForm extends React.Component {
                   type="text"
                   name="splash_image"
                   value={splash_image}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
               </div>
@@ -152,7 +137,7 @@ class UserForm extends React.Component {
                   type="text"
                   name="first_name"
                   value={first_name}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
 
@@ -161,7 +146,7 @@ class UserForm extends React.Component {
                   type="text"
                   name="last_name"
                   value={last_name}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
 
@@ -170,7 +155,7 @@ class UserForm extends React.Component {
                   type="text"
                   name="username"
                   value={username}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
 
@@ -179,21 +164,22 @@ class UserForm extends React.Component {
                   type="text"
                   name="email"
                   value={email}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></input>
                 <br />
 
-                <label htmlFor="password">Password: </label>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={this.handleChange}
-                ></input>
-                <br />
-                {/*           
-            <label htmlFor='password_confirm'>Password Confirmation: </label>
-            <input type='password' name='password_confirm' value={ password_confirm } onChange={this.handleChange}></input><br /> */}
+                {isEmpty(user) && (
+                  <>
+                    <label htmlFor="password">Password: </label>
+                    <input
+                      type="password"
+                      name="password"
+                      value={password}
+                      onChange={handleChange}
+                    ></input>
+                    <br />
+                  </>
+                )}
 
                 <label htmlFor="bio">Bio:</label>
                 <br />
@@ -201,40 +187,22 @@ class UserForm extends React.Component {
                   name="bio"
                   rows="6"
                   value={bio}
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                 ></textarea>
                 <p />
                 {/* 
             <label htmlFor='photo'>Photo:</label><br />
             <input type='file' name='photo' onChange={this.handleChange}/>  */}
 
-                <Button onClick={this.handleSubmit}>Submit</Button>
+                <Button onClick={handleSubmit}>Submit</Button>
               </div>
             </Grid.Column>
           </Grid>
-          {/* {this.displayAlert()} */}
-          <img
-            alt="user-profile-pic"
-            src={`http://localhost:3000${this.props.user.photo}`}
-          />
+          {/* <img alt="user-profile-pic" src={`${BASE_URL()}/${user.photo}`} /> */}
         </Segment>
-      </div>
-    );
-  }
+      </form>
+    </div>
+  );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-    notifications: state.notifications,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addingUser: (contact) => dispatch(addingUser(contact)),
-    updatingUser: (user, id) => dispatch(updatingUser(user, id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserForm);
+export default UserForm;

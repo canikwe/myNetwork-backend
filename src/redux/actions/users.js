@@ -1,122 +1,134 @@
-import { FETCHED_USER, LOADING_USER, UPDATING_USER, THROW_ERROR, CLEAR_ERROR, LOGOUT_USER, CLEAR_LOADING } from '../types'
-import { authHeaders, BASE_URL } from '../types'
+import {
+  FETCHED_USER,
+  LOADING_USER,
+  UPDATING_USER,
+  THROW_ERROR,
+  CLEAR_ERROR,
+  LOGOUT_USER,
+  CLEAR_LOADING,
+} from "../types";
+import { authHeaders, BASE_URL } from "../types";
 
 //Initial User Fetch, loading into state, and error handling
-const fetchedUser = payload => {
-  return { type: FETCHED_USER, payload }
-}
+const fetchedUser = (payload) => {
+  return { type: FETCHED_USER, payload };
+};
 
 const loadingUser = () => {
-  return { type: LOADING_USER }
-}
+  return { type: LOADING_USER };
+};
 
 const clearLoading = () => {
-  return { type: CLEAR_LOADING }
-}
+  return { type: CLEAR_LOADING };
+};
 
 const displayError = (errors) => {
-  return { type: THROW_ERROR, errors }
-}
+  return { type: THROW_ERROR, errors };
+};
 
-const fetchingUser = token => {
+const fetchingUser = (token) => {
   return (dispatch) => {
-    dispatch(loadingUser)
+    dispatch(loadingUser);
 
     fetch(`${BASE_URL()}/profile`, {
-      headers: authHeaders()
+      headers: authHeaders(),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.user.id !== undefined) {
-          console.log(data.user)
-          dispatch(fetchedUser(data))
+          dispatch(fetchedUser(data));
         } else {
-          dispatch(clearLoading())
+          dispatch(clearLoading());
         }
-      })
-  }
-}
+      });
+  };
+};
 
-const addingUser = user => {
+const addingUser = (user) => {
   return (dispatch) => {
-    dispatch(loadingUser)
+    dispatch(loadingUser);
 
     fetch(`${BASE_URL()}/users`, {
-      method: 'POST',
-      // headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({user})
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user }),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
         if (data.authenticated) {
-          dispatch(fetchedUser(data))
-          localStorage.setItem('token', data.token)
+          dispatch(fetchedUser(data));
+          localStorage.setItem("token", data.token);
         } else {
-          console.log(data.message)
-          dispatch(displayError(data))
-          dispatch(clearLoading())
+          dispatch(displayError(data));
+          dispatch(clearLoading());
         }
-      })
-  }
-}
+      });
+  };
+};
 
-
-const authenticatingUser = params => {
+const authenticatingUser = (params) => {
   return (dispatch) => {
-    dispatch(loadingUser)
+    dispatch(loadingUser);
 
     fetch(`${BASE_URL()}/login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(params)
+      body: JSON.stringify(params),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
         if (data.authenticated) {
-          dispatch(fetchedUser(data))
-          localStorage.setItem('token', data.token)
+          dispatch(fetchedUser(data));
+          localStorage.setItem("token", data.token);
         } else {
-          console.log(data)
-          dispatch(displayError(data.message))
-          dispatch(clearLoading())
+          console.log(data);
+          dispatch(displayError(data.message));
+          dispatch(clearLoading());
         }
       })
       .catch((error) => {
-        dispatch(displayError(error))
-        throw error
-      })
-  }
-}
+        dispatch(displayError(error));
+        throw error;
+      });
+  };
+};
 
 const clearError = () => {
-  return { type: CLEAR_ERROR }
-}
+  return { type: CLEAR_ERROR };
+};
 
-const updateUser = user => {
-  return { type: UPDATING_USER, user: user }
-}
+const updateUser = (data) => {
+  return { type: UPDATING_USER, data };
+};
 
 const updatingUser = (user, id) => {
-  return dispatch => {
+  return (dispatch) => {
     fetch(`${BASE_URL()}/users/${id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: authHeaders(),
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        dispatch(updateUser(data))
-      })
-  }
-}
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(updateUser(data));
+      });
+  };
+};
 
 const logoutUser = () => {
-  return { type: LOGOUT_USER }
-}
+  return { type: LOGOUT_USER };
+};
 
-export { logoutUser, updatingUser, clearError, authenticatingUser, addingUser, fetchingUser, clearLoading }
+export {
+  logoutUser,
+  updatingUser,
+  clearError,
+  authenticatingUser,
+  addingUser,
+  fetchingUser,
+  clearLoading,
+};

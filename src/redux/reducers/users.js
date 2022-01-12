@@ -7,46 +7,45 @@ import {
   CLEAR_ERROR,
   LOGOUT_USER,
   CLEAR_LOADING,
-} from '../types'
-
+} from "../types";
 
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case FETCHED_USER:
-      return action.payload.user
+      return action.payload.user;
     case UPDATING_USER:
-      return action.user.user
+      return action.data.user;
     case LOGOUT_USER:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
-}
+};
 
 const loadingReducer = (state = true, action) => {
   switch (action.type) {
     case LOADING_USER:
-      return true
+      return true;
     case FETCHED_USER:
-      return false
+      return false;
     case CLEAR_LOADING:
-      return false
+      return false;
     default:
-      return state
+      return state;
   }
-}
+};
 
 const notificationReducer = (state = [], action) => {
   switch (action.type) {
     case THROW_ERROR:
-      console.log(action.errors)
-      return action.errors
+      return action.errors;
     case UPDATING_USER:
-      return { message: [action.user.message] }
+      return { message: [action.data.message] };
     case CLEAR_ERROR:
-      return []
-    default: return state
+      return [];
+    default:
+      return state;
   }
-}
+};
 
-export { userReducer, loadingReducer, notificationReducer }
+export { userReducer, loadingReducer, notificationReducer };
