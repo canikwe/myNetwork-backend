@@ -7,23 +7,15 @@ import FeaturedContactCardContainer from "../components/FeaturedContactCardConta
 
 const Homepage = (props) => {
   const thrivingContacts = () => {
-    const filterdByEncounter = props.contacts.filter(
-      (c) => c.encounters.length
-    );
-    return filterdByEncounter.sort(
-      (a, b) => b.encounters.length - a.encounters.length
-    );
+    const filterdByEncounter = props.contacts.filter((c) => c.encounters.length);
+    return filterdByEncounter.sort((a, b) => b.encounters.length - a.encounters.length);
   };
 
   const wiltingContacts = () => {
     const thrivingContactsCount = thrivingContacts().length;
     const averageEncounterNum =
-      thrivingContacts().reduce(
-        (acc, curr) => acc + curr.encounters.length,
-        0
-      ) / thrivingContactsCount;
+      thrivingContacts().reduce((acc, curr) => acc + curr.encounters.length, 0) / thrivingContactsCount;
 
-    // debugger
     return props.contacts.filter((c) => c.encounters <= averageEncounterNum);
   };
 
@@ -44,12 +36,6 @@ const Homepage = (props) => {
               <Feature />
             </Grid.Column>
           </Grid.Row>
-
-          {/* <Grid.Row centered>
-          <Grid.Column>
-            <Filter />
-          </Grid.Column>
-        </Grid.Row> */}
 
           <Grid.Row>
             <Grid.Column>
@@ -72,10 +58,6 @@ const Homepage = (props) => {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-
-        {/* {props.reminders.map(r => alerts(r))} */}
-
-        {/* {props.reminders.filter(r => r.date !== null && new Date(r.date) >= new Date()).map(r => console.log(r.msg, new Date(r.date)))} */}
       </div>
     );
   }

@@ -22,9 +22,7 @@ class ContactForm extends React.Component {
   handleKindChange = (e, { value }) => this.setState({ kind: value });
 
   submitForm = () => {
-    if (this.state.first_name === "") {
-      /** ✨ some notification happens */
-    } else if (this.props.contact) {
+    if (this.props.contact) {
       const updatedContact = {
         contact: {
           id: this.state.id,
@@ -63,52 +61,27 @@ class ContactForm extends React.Component {
   };
 
   render() {
-    // console.log(this.state)
     return (
-      // <Segment padded>
       <Grid padded columns={2}>
         <Grid.Row>
-          {this.props.contact ? (
-            <h3>Edit {this.props.contact.name}</h3>
-          ) : (
-            <h3>Add a new Contact!</h3>
-          )}
+          {this.props.contact ? <h3>Edit {this.props.contact.name}</h3> : <h3>Add a new Contact!</h3>}
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
             <div className="ui form">
-              <img
-                className="ui small image"
-                src={this.state.avatar}
-                alt="user_avatar"
-              />
+              <img className="ui small image" src={this.state.avatar} alt="user_avatar" />
               <br />
-              <input
-                type="text"
-                value={this.state.avatar}
-                name="avatar"
-                onChange={this.handleChange}
-              ></input>
+              <input type="text" value={this.state.avatar} name="avatar" onChange={this.handleChange}></input>
               <br />
             </div>
           </Grid.Column>
           <Grid.Column>
             <div className="ui form">
               <label htmlFor="first_name">First Name:</label>
-              <input
-                type="text"
-                value={this.state.first_name}
-                name="first_name"
-                onChange={this.handleChange}
-              ></input>
+              <input type="text" value={this.state.first_name} name="first_name" onChange={this.handleChange}></input>
               <p />
               <label htmlFor="last_name">Last Name:</label>
-              <input
-                type="text"
-                value={this.state.last_name}
-                name="last_name"
-                onChange={this.handleChange}
-              ></input>
+              <input type="text" value={this.state.last_name} name="last_name" onChange={this.handleChange}></input>
               <p />
               <label htmlFor="avatar">Type:</label>
               <Dropdown
@@ -122,19 +95,13 @@ class ContactForm extends React.Component {
               <p />
 
               <label htmlFor="first_name">Details: </label>
-              <textarea
-                name="details"
-                rows="3"
-                value={this.state.details}
-                onChange={this.handleChange}
-              ></textarea>
+              <textarea name="details" rows="3" value={this.state.details} onChange={this.handleChange}></textarea>
               <p />
               <Button onClick={this.submitForm}>Submit</Button>
             </div>
           </Grid.Column>
         </Grid.Row>
       </Grid>
-      // </Segment>
     );
   }
 }

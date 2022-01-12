@@ -14,10 +14,6 @@ class Login extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   document.body.style.backgroundColor = "red"// Set the style
-  // }
-
   handleSubmit = (event) => {
     event.preventDefault();
 
@@ -60,7 +56,6 @@ class Login extends React.Component {
           </Grid.Row>
           <Grid.Row>
             <Segment id="login">
-              {/* <Header floated='left'>Login</Header> */}
               <Grid columns={2} relaxed="very" stackable>
                 <Grid.Column>
                   <form className="ui form" onSubmit={this.handleSubmit}>
@@ -90,13 +85,7 @@ class Login extends React.Component {
                   </form>
                 </Grid.Column>
                 <Grid.Column textAlign="center" verticalAlign="middle">
-                  <Button
-                    content="Sign Up"
-                    as={Link}
-                    to="/signup"
-                    icon="signup"
-                    size="big"
-                  />
+                  <Button content="Sign Up" as={Link} to="/signup" icon="signup" size="big" />
                 </Grid.Column>
               </Grid>
               <Divider vertical>Or</Divider>
@@ -115,7 +104,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // loadingUser: (user) => dispatch(loadingUser(user)),
     authenticatingUser: (params) => dispatch(authenticatingUser(params)),
     clearError: () => dispatch(clearError()),
   };

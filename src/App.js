@@ -146,7 +146,6 @@ class App extends Component {
             </Switch>
           </main>
           <Footer />
-          {/* {this.props.reminders.map(r => this.alerts(r))} */}
         </div>
       );
     }
