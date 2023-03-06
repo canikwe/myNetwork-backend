@@ -55,14 +55,19 @@ RSpec.describe 'Api::V1::UsersCreateInteractor' do
       end
     end
 
-    xcontext 'when the user is not saved' do
+    context 'when the user is not saved' do
       before do
-        allow(subject).to receive(:save_user).and_return(false)
+        allow(subject).to receive(:save_user).and_raise(ActiveRecord::RecordInvalid)
+        # allow(subject).to receive(:user).and_return(user)
       end
 
-      it 'returns an error message' do
-        expect(result[:message]).to be_instance_of(Array)
-        expect(result[:message]).to be_empty
+      it 'returns an error' do
+        expect(result[:errors]).to be_instance_of(Array)
+        expect(result[:errors]).to_not be_empty
+      end
+
+      it 'returns the user as not authenticated' do
+        expect(result[:authenticated]).to be_falsey
       end
     end
   end

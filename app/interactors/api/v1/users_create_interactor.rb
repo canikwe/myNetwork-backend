@@ -16,7 +16,7 @@ class Api::V1::UsersCreateInteractor
   attr_accessor :params, :user, :token
 
   def save_user
-    self.user = User.create(params)
+    self.user = User.create!(params)
   end
 
   def create_token
