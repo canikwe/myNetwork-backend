@@ -62,12 +62,14 @@ RSpec.describe 'Api::V1::UsersCreateInteractor' do
       end
 
       it 'returns an error' do
-        expect(result[:errors]).to be_instance_of(Array)
-        expect(result[:errors]).to_not be_empty
+        response = result.failure
+        expect(response[:error]).to be_instance_of(ActiveRecord::RecordInvalid)
+        expect(response[:message]).to_not be_nil
       end
 
       it 'returns the user as not authenticated' do
-        expect(result[:authenticated]).to be_falsey
+        response = result.failure
+        expect(response[:authenticated]).to be_falsey
       end
     end
   end

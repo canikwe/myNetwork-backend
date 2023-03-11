@@ -18,6 +18,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
 gem 'jwt', '~> 2.1'
 gem "factory_bot_rails"
+gem 'dry-monads'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
