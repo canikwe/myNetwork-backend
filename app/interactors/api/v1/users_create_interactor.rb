@@ -1,6 +1,4 @@
 require 'dry/monads'
-# require 'dry/monads/result'
-# require 'dry/monads/do'
 
 class Api::V1::UsersCreateInteractor
   include Dry::Monads[:result]
@@ -12,10 +10,10 @@ class Api::V1::UsersCreateInteractor
   end
 
   def call
-    my_rescue do
-       save_user
+    try_catch do
+      save_user
       yield create_token
-      yield serialize_user_response
+      yield serialize_success_response
     end
   end
 
@@ -33,14 +31,8 @@ class Api::V1::UsersCreateInteractor
     Success()
   end
   
-  def serialize_user_response
-    response = {
-      user: serialize_user,
-      reminders: [],
-      contacts: [],
-      token: token,
-      authenticated: true
-    }
+  def serialize_success_response
+    response = { user: serialize_user, token: token, authenticated: true , **base_response_args }
     Success(response)
   end
 
@@ -48,13 +40,18 @@ class Api::V1::UsersCreateInteractor
     UserSerializer.new(user)
   end
 
-  def my_rescue
+  def base_response_args
+    { reminders: [], contacts: [] }
+  end
+
+  def try_catch
     yield
   rescue ActiveRecord::RecordInvalid => e
-    Failure({
-      authenticated: false,
-      message: e.message,
-      error: e
-    })
+    serialize_failure_response(e)
+  end
+
+  def serialize_failure_response(error)
+    response = { user: nil, message: error.message, error: error, authenticated: false, **base_response_args }
+    Failure(response)
   end
 end

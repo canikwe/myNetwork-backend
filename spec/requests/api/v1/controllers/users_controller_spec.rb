@@ -1,6 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::UsersController', type: :request do
+RSpec.describe Api::V1::UsersController, type: :request do
+  let(:route) { '/api/v1/users' }
   let(:user) { build(:user) }
   let(:params) do
     { user: 
@@ -25,7 +26,7 @@ RSpec.describe 'Api::V1::UsersController', type: :request do
   describe '#create' do
     context "when the user's params are valid" do
       before do
-        post '/api/v1/users', params: params
+        post route, params: params
       end
   
       it 'is a successful response' do
@@ -36,7 +37,7 @@ RSpec.describe 'Api::V1::UsersController', type: :request do
 
     context "when the user's params are invalid" do
       before do
-        post '/api/v1/users', params: { user: { first_name: '' } }
+        post route, params: { user: { first_name: '' } }
       end
   
       it 'is an unsuccessful response' do

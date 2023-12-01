@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::UsersCreateInteractor' do
+RSpec.describe Api::V1::UsersCreateInteractor do
   let(:user) { build(:user) }
   let(:params) do
     {
@@ -58,7 +58,6 @@ RSpec.describe 'Api::V1::UsersCreateInteractor' do
     context 'when the user is not saved' do
       before do
         allow(subject).to receive(:save_user).and_raise(ActiveRecord::RecordInvalid)
-        # allow(subject).to receive(:user).and_return(user)
       end
 
       it 'returns an error' do
