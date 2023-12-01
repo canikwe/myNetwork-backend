@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.7'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1.7'
@@ -17,6 +17,8 @@ gem 'puma', '~> 4.3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
 gem 'jwt', '~> 2.1'
+gem "factory_bot_rails"
+gem 'dry-monads'
 
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
@@ -35,6 +37,9 @@ gem 'verbs'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
+  gem 'faker'
+  gem 'rspec-rails', '~> 5.0.0'
 end
 
 group :development do
