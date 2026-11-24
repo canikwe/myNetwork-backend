@@ -16,7 +16,7 @@ gem 'puma', '~> 4.3'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
-gem 'jwt', '~> 2.1'
+gem 'jwt', '~> 2.10'
 gem "factory_bot_rails"
 gem 'dry-monads'
 
