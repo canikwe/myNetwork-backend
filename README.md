@@ -1,14 +1,16 @@
-# myNetwork | Backend
+# myBudee | Backend
 
-myNetwork is a web application written with a React-Redux frontend and a Rails API backend. It authorizes the user and sends back a token using JWT, authenticates users through BCrypt, and sends user-specific database information through serialization and custom methods.
+myBudee is a web application written with a React-Redux frontend and a Rails API backend. It authorizes the user and sends back a token using JWT, authenticates users through BCrypt, and sends user-specific database information through serialization and custom methods.
 
-## Demo
+## The original 2019 version
 
-[myNetwork](https://youtu.be/q1ODMvxXRG0)
+This demo video shows myBudee as it was first built in 2019, before the app was modernized.
+
+[myBudee demo (2019)](https://youtu.be/q1ODMvxXRG0)
 
 ## Installation
 
-Please note, this application requires both the front and backend. Click [here](https://github.com/canikwe/mynetwork-frontend) for instructions on installing and setting up the frontend. **Please follow all backend instructions _before_ proceeding with frontend installation**
+Please note, this application requires both the front and backend. Click [here](https://github.com/canikwe/mybudee-frontend) for instructions on installing and setting up the frontend. **Please follow all backend instructions _before_ proceeding with frontend installation**
 
 ### Ruby Version
 
@@ -21,11 +23,11 @@ Click [here](https://www.ruby-lang.org/en/documentation/installation/) for more 
 
 ### Gem Installation
 
-myNetwork uses Ruby gems for data serialization, authorization, and authentication. Please use [Bundler](https://bundler.io/) to manage this application's gems.
+myBudee uses Ruby gems for data serialization, authorization, and authentication. Please use [Bundler](https://bundler.io/) to manage this application's gems.
 
 To start, please clone or download the repository to your computer. If you are already in your computer's terminal, cd into the directory. If you are in your computer's Finder or Explorer, right-click and select an option to open the directory in your terminal.
 
-**Make sure you are in the mynetwork-backend directory before proceeding to the next step.**
+**Make sure you are in the mybudee-backend directory before proceeding to the next step.**
 
 Type `bundle install` to install all Ruby gems and dependencies.
 
@@ -33,7 +35,7 @@ Type `bundle install` to install all Ruby gems and dependencies.
 
 Head over to [PostgresSQL](https://www.postgresql.org/) to download the database this application uses.
 
-Next, run the following commands in the terminal to set up the local myNetwork database:
+Next, run the following commands in the terminal to set up the local myBudee database:
 
 ```bash
 rails db:create
