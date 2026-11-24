@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  rspec:
+    name: RSpec
+    # ubuntu-latest (26.04) only has the newest Ruby 3.2.x patch, but the
+    # Gemfile pins 3.2.2. Move to ubuntu-latest with the Ruby 3.4 upgrade (#55).
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/myNetwork-backend_test
+      BUNDLE_PATH: vendor/bundle
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2.2"
+
+      # Gemfile.lock only lists macOS (arm64-darwin-22). Add Linux here so the
+      # committed lockfile stays unchanged; the Linux platform is added to the
+      # lockfile itself during the Rails 7.1 upgrade.
+      - name: Add Linux platform to the lockfile (CI only)
+        run: bundle lock --add-platform x86_64-linux
+
+      - name: Cache gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: gems-${{ runner.os }}-ruby-3.2.2-${{ hashFiles('Gemfile.lock') }}
+          restore-keys: gems-${{ runner.os }}-ruby-3.2.2-
+
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Set up database
+        run: bin/rails db:create db:schema:load
+
+      - name: Run RSpec
+        run: bundle exec rspec
